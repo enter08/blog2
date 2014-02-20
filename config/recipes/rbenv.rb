@@ -12,7 +12,7 @@ namespace :rbenv do
       
       upload! f1, "/tmp/rbenvrc"
       execute :cat, "/tmp/rbenvrc ~/.bashrc > ~/.bashrc.tmp"
-      execute :mv, "~/.bashrc.tmp", "~/.bashrc"
+      exgecute :mv, "~/.bashrc.tmp", "~/.bashrc"
       # execute :sudo, "export", 'PATH="$RBENV_ROOT/bin:$PATH"'
       # execute :sudo, "eval", '"$(rbenv init -)"'
       execute :rbenv, "#{fetch(:rbenv_bootstrap)}"

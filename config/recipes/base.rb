@@ -1,5 +1,5 @@
 def template(from, to)
-	erb = File.read(File.expand_path("../templates/nginx_unicorn.erb"), __FILE__)
+	erb = File.read(File.expand_path("../templates/#{from}", __FILE__))
 	upload! ERB.new(erb).result(binding), to
 end
 

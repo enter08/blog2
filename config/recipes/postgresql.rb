@@ -1,7 +1,7 @@
 set_default(:postgresql_host, "localhost")
-set_default(:postgresql_user, fetch(:application))
+set_default(:postgresql_user, "blog4")
 set_default(:postgresql_password, "secret")
-set_default(:postgresql_database, "#{fetch(:application)}_production")
+set_default(:postgresql_database, "blog4_production")
 
 namespace :postgresql do
   desc "Install the latest stable release of PostgreSQL."
@@ -18,11 +18,11 @@ namespace :postgresql do
   desc "Create a database for this application."
   task :create_database do
     on roles(:db) do
-      execute :sudo, "-u", "postgres", "psql", "-c", "create user #{fetch(:postgresql_user)} with password '#{fetch(:postgresql_password)}';"
-      execute :sudo, "-u", "postgres", "psql", "-c", "create database #{fetch(:postgresql_database)} owner #{fetch(:postgresql_user)};"
+      execute :sudo, "-u", "postgres", "psql", "-c", %Q{"create user #{fetch(:postgresql_user)} with password '#{fetch(:postgresql_password)}';"}
+      execute :sudo, "-u", "postgres", "psql", "-c", %Q{"create database #{fetch(:postgresql_database)} owner #{fetch(:postgresql_user)};"}
     end
   end
-  before "deploy:starting", :create_database
+  before "deploy:starting", 'postgresql:create_database'
 
   desc "Generate the database.yml configuration file."
   task :setup do
