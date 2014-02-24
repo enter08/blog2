@@ -1,9 +1,10 @@
 set_default(:postgresql_host, "localhost")
-set_default(:postgresql_user, "blog4")
+set_default(:postgresql_user, "blog43")
 set_default(:postgresql_password, "secret")
-set_default(:postgresql_database, "blog4_production")
+set_default(:postgresql_database, "blog43_production")
 
 namespace :postgresql do
+  desc "Install the latest stable release of PostgreSQL."
   desc "Install the latest stable release of PostgreSQL."
   task :install do
     on roles(:db) do
@@ -22,16 +23,16 @@ namespace :postgresql do
       execute :sudo, "-u", "postgres", "psql", "-c", %Q{"create database #{fetch(:postgresql_database)} owner #{fetch(:postgresql_user)};"}
     end
   end
-  before "deploy:starting", 'postgresql:create_database'
+  after "deploy:starting", 'postgresql:create_database'
 
-  desc "Generate the database.yml configuration file."
-  task :setup do
-    on roles(:app) do
-      execute :mkdir, "-p", "#{shared_path}/config"
-      template "postgresql.yml.erb", "#{shared_path}/config/database.yml"
-    end
-  end
-  after "deploy:starting", "postgresql:setup"
+  # desc "Generate the database.yml configuration file."
+  # task :setup do
+  #   on roles(:app) do
+  #     execute :mkdir, "-p", "#{shared_path}/config"
+  #     template "postgresql.yml.erb", "#{shared_path}/config/database.yml"
+  #   end
+  # end
+  # before "deploy:starting", "postgresql:setup"
 
   # desc "Symlink the database.yml file into latest release"
   # task :symlink do

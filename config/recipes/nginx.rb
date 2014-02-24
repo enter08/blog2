@@ -15,7 +15,6 @@ namespace :nginx do
 			template "nginx_unicorn.erb", "/tmp/nginx_conf"
 			execute :sudo, "mv", "/tmp/nginx_conf", "/etc/nginx/sites-enabled/#{fetch(:application)}"
 			execute :sudo, "rm", "-f", "/etc/nginx/sites-enabled/default"
-			restart
 		end
 	end
 
@@ -29,4 +28,5 @@ namespace :nginx do
 	    	end
     	end
 	end
+	after "nginx:setup", :restart
 end
