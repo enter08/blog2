@@ -18,6 +18,7 @@ namespace :unicorn do
       #erb = File.read(File.expand_path("../templates/unicorn.rb.erb", __FILE__))
       #erb = File.read(File.expand_path("../templates/unicorn_init.erb", __FILE__))
       #puts ERB.new(erb).result(binding)
+      #puts "da #{fetch(:some_path)}"
     end
   end
   after "deploy:finishing", :setup

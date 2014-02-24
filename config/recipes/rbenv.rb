@@ -3,6 +3,7 @@ set_default :rbenv_bootstrap, "bootstrap-ubuntu-12-04"
 
 set :rbenv_type, :user # or :system, depends on your rbenv setup
 set :rbenv_ruby, '2.1.0'
+set :rbenv_path, '/home/deployer/.rbenv'
 set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
 set :rbenv_map_bins, %w{rake gem bundle ruby rails}
 set :rbenv_roles, :all # default value
@@ -19,8 +20,8 @@ namespace :rbenv do
       upload! f1, "/tmp/rbenvrc"
       execute :cat, "/tmp/rbenvrc ~/.bashrc > ~/.bashrc.tmp"
       execute :mv, "~/.bashrc.tmp", "~/.bashrc"
-      # execute :sudo, "export", 'PATH="$RBENV_ROOT/bin:$PATH"'
-      # execute :sudo, "eval", '"$(rbenv init -)"'
+      #execute :export, 'PATH="/home/deployer/.rbenv/bin:$PATH"'
+      #execute :eval, '"$(rbenv init -)"'
       execute :rbenv, "#{fetch(:rbenv_bootstrap)}"
       execute :rbenv, "install #{fetch(:ruby_version)}"
       execute :rbenv, "global #{fetch(:ruby_version)}"
