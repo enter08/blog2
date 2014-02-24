@@ -1,7 +1,7 @@
 set_default(:postgresql_host, "localhost")
-set_default(:postgresql_user, "blog43")
+set_default(:postgresql_user, "blog46")
 set_default(:postgresql_password, "secret")
-set_default(:postgresql_database, "blog43_production")
+set_default(:postgresql_database, "blog46_production")
 
 namespace :postgresql do
   desc "Install the latest stable release of PostgreSQL."
