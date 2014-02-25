@@ -8,13 +8,23 @@
 # role :web, %w{deploy@example.com}
 # role :db,  %w{deploy@example.com}
 
+set :stage, :production
+set :branch, "master"
+
 # Extended Server Syntax
 # ======================
 # This can be used to drop a more detailed server
 # definition into the server list. The second argument
 # something that quacks like a hash can be used to set
 # extended properties on the server.
+
+set :full_app_name, "#{fetch(:application)}_#{fetch(:stage)}"
+
 server '95.85.25.147', user: 'deployer', roles: %w{web app db}
+
+set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/#{fetch(:application)}"
+
+set :rails_env, :production
 
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options

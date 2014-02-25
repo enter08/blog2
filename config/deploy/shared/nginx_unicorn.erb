@@ -1,11 +1,11 @@
 upstream unicorn {
-    server unix:/tmp/unicorn.blog2.sock fail_timeout=0;
+    server unix:/tmp/unicorn.<%= fetch(:full_app_name) %>.sock fail_timeout=0;
 }
 
 server {
   listen 80 default deferred;
   # server_name example.com;
-  root <%= current_path %>/public;
+  root <%= fetch(:deploy_to) %>/current/public;
 
   location ^~ /assets/ {
     gzip_static on;

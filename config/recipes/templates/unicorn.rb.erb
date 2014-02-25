@@ -1,8 +1,0 @@
-working_directory "/home/deployer/apps/blog2/shared"
-pid "<%= fetch(:unicorn_pid) %>"
-stderr_path "<%= fetch(:unicorn_log) %>"
-stdout_path "<%= fetch(:unicorn_log) %>"
-
-listen "/tmp/unicorn.blog2.sock"
-worker_processes <%= fetch(:unicorn_workers) %>
-timeout 30
