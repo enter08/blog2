@@ -3,12 +3,13 @@ set_default(:unicorn_pid, "/home/deployer/apps/blog2/current/tmp/pids/unicorn.pi
 set_default(:unicorn_config, "/home/deployer/apps/blog2/shared/config/unicorn.rb" )
 set_default(:unicorn_log, "/home/deployer/apps/blog2/shared/log/unicorn.log")
 set_default(:unicorn_workers, 2)
-set_default(:current_path, "/home/deployer/apps/blog2/current")
+#set_default(:current_path, "/home/deployer/apps/blog2/current")
 
 namespace :unicorn do
   desc "Setup Unicorn initializer and app configuration"
   task :setup do
    on roles(:app) do
+      #puts "423432 #{fetch(:unicorn_user)}"
       execute :mkdir, "-p", "#{shared_path}/config"
       template "unicorn.rb.erb", fetch(:unicorn_config)
       template "unicorn_init.erb", "/tmp/unicorn_init"
@@ -24,7 +25,7 @@ namespace :unicorn do
   after "deploy:finishing", :setup
 
   %w[start stop restart].each do |command|
-      desc "asdas"
+      desc "#{command}"
       task command do
         on roles(:app) do
          execute "service unicorn_#{fetch(:application)} #{command}"

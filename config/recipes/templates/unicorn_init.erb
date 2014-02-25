@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh <!--  -->
 ### BEGIN INIT INFO
 # Provides:          unicorn
 # Required-Start:    $remote_fs $syslog
@@ -12,10 +12,10 @@ set -e
 
 # Feel free to change any of the following variables for your app:
 TIMEOUT=${TIMEOUT-60}
-APP_ROOT=<%= '/home/deployer/apps/blog2/current' %>
+APP_ROOT=/home/deployer/apps/blog2/current
 PID=<%= fetch(:unicorn_pid) %>
-CMD="cd <%= '/home/deployer/apps/blog2/current' %>; bundle exec unicorn -D -c <%= fetch(:unicorn_config) %> -E production"
-AS_USER=<%= fetch(:unicorn_user) %>
+CMD="cd /home/deployer/apps/blog2/current; bundle exec unicorn -D -c <%= fetch(:unicorn_config) %> -E production"
+AS_USER=deployer
 set -u
 
 OLD_PIN="$PID.oldbin"
